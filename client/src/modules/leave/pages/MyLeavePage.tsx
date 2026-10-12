@@ -17,7 +17,7 @@ import {
   useNominateReplacement, useRequestCancellation, useRequestExtension,
   useRespondToSubstitution, useSubmitResumption, useValidateLeave, useWithdraw,
 } from "../api/hooks";
-import type { LeaveRequest, SubstitutionAssignment } from "../api/types";
+import type { LeaveRequest } from "../api/types";
 import { CATEGORY_LABELS } from "../api/types";
 
 const CATEGORY_OPTIONS = Object.entries(CATEGORY_LABELS)
@@ -65,8 +65,8 @@ function ApplyModal({ opened, onClose }: { opened: boolean; onClose: () => void 
           onChange={(v) => { setCategory(v ?? "cl"); reset(); }} allowDeselect={false}
         />
         <Group grow>
-          <DateInput label="From" value={from} onChange={(v) => { setFrom(v ?? ""); reset(); }} />
-          <DateInput label="To" value={to} onChange={(v) => { setTo(v ?? ""); reset(); }} />
+          <DateInput label="From" value={from ?? undefined} onChange={setFrom} />
+          <DateInput label="To" value={to ?? undefined} onChange={setTo} />
         </Group>
         {category === "cl" && (
           <Select
@@ -92,7 +92,7 @@ function ApplyModal({ opened, onClose }: { opened: boolean; onClose: () => void 
           <Card withBorder padding="sm" bg={verdict.is_valid ? "green.0" : "red.0"}>
             <Stack gap={4}>
               <Text size="sm" fw={600}>
-                This application can proceed or not; the server decides.
+                Check the server result for whether this application can proceed.
               </Text>
             </Stack>
           </Card>

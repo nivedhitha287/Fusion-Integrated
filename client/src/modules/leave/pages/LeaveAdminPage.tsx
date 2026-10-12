@@ -89,7 +89,7 @@ export default function LeaveAdminPage() {
           loading={sla.isPending}
           rowKey={(r) => r.key}
           minWidth={400}
-          empty={{ icon: FaTool, title: "No SLA thresholds yet", description: "Configure leave request SLA windows here." }}
+          empty={{ icon: FaFileSignature, title: "No SLA thresholds yet", description: "Configure leave request SLA windows here." }}
           columns={[
             { key: "label", header: "Setting", render: (r) => <Text fw={600}>{r.label}</Text> },
             { key: "value", header: "Value", render: (r) => <Text size="sm">{r.value}</Text> },

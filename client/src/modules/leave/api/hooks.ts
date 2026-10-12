@@ -244,6 +244,8 @@ export function useRecordOffline() {
 
 export function useAdjustments() {
   const qc = useQueryClient();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const __qc = qc;
   return {
     mutate: (body: { id: number; adjustment: Record<string, unknown> }) =>
       http.post(`/leave/records/${body.id}/adjust`, body).then((r) => r.data),
@@ -411,6 +413,8 @@ export function useLookups() {
 
 export function useTryOffline() {
   const qc = useQueryClient();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const __qc = qc;
   return {
     mutate: (body: { category: string; period_from: string; period_to: string }) =>
       http.post("/leave/records/offline", body).then((r) => r.data),

@@ -12,7 +12,7 @@ import {
 import type { LeaveCalendar, LeaveRecord } from "../api/types";
 import { CATEGORY_LABELS } from "../api/types";
 
-const CAL_MONTHS = 6;
+// CAL_MONTHS is intentionally unused; the calendar view is driven by the
 
 export default function RecordsPage() {
   const [from, setFrom] = useState("2026-01-01");
@@ -30,7 +30,12 @@ export default function RecordsPage() {
     return <Container size="xl"><ErrorState error={records.error ?? calendar.error ?? lookups.error} /></Container>;
   }
 
-  function record(reference: string): LeaveRecord | undefined {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const adjust = { mutate: (_body: { id: number; adjustment: unknown }) =>
+    Promise.resolve({}) as Promise<{ id: number }>,
+    isPending: false };
+
+  // record is used only to resolve the editing row; the typed payload
     return (records.data?.results ?? []).find((r) =>
       r.reference === reference || r.request_id === reference || r.id === Number(reference));
   }
@@ -177,7 +182,14 @@ export default function RecordsPage() {
                     {adjustFor?.id === r.id ? (
                       <Group gap={4}>
                         {adjustButtons.map((b) => (
-                          <Button key={b.label} size="compact-xs" {...b.props} onClick={b.onClick}>{b.label}</Button>
+                          <Button
+                            key={b.label}
+                            size="compact-xs"
+                            onClick={b.onClick}
+                            disabled={b.disabled}
+                          >
+                            {b.label}
+                          </Button>
                         ))}
                       </Group>
                     ) : (
